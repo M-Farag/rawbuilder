@@ -3,7 +3,7 @@
 # rawbuilder documentation build configuration file, created by
 # sphinx-quickstart on Fri Jun  9 13:47:02 2017.
 #
-# This file is execfile()d with the current directory set to its
+# This file is execfile()d with the current directory dataset to its
 # containing dir.
 #
 # Note that not all possible configuration values are present in this
@@ -63,7 +63,7 @@ release = rawbuilder.__version__
 # for a list of supported languages.
 #
 # This is also used if you do content translation via gettext catalogs.
-# Usually you set "language" from the command line for these cases.
+# Usually you dataset "language" from the command line for these cases.
 language = None
 
 # List of patterns, relative to source directory, that match files and
