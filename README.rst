@@ -32,6 +32,7 @@ Features
 How to use it
 -------
 .. code-block:: python
+
     # Import the package into any python app
     import rawbuilder
 
