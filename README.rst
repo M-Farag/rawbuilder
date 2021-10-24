@@ -26,12 +26,28 @@ an elegant datasets factory
 Features
 --------
 
-* TODO
+* Schema oriented datasets builder
+
+
+How to use it
+-------
+.. code-block:: python
+    # Import the package into any python app
+    import rawbuilder
+
+    # Init the dataset object as ds
+    ds = rawbuilder.DataSet(
+            size=1000,
+            schema=['user'],
+            file_name='my_users_dataset_1'
+    )
+
+    # Build the dataset
+    ds.build()
 
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+This package was created with Cookiecutter_ .
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
