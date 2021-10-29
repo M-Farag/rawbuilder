@@ -36,8 +36,7 @@ How to use it
     # Init the dataset object as ds
     ds = rawbuilder.DataSet(
             size=1000,
-            schema=['user'],
-            file_name='my_users_dataset_1'
+            tasks=['user']
     )
 
     # Build the dataset
