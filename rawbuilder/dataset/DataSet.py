@@ -1,7 +1,7 @@
 import pkg_resources
 import yaml
-from yaml.loader import SafeLoader
 import pandas as pd
+from yaml.loader import SafeLoader
 from ..mocker.Mocker import Mocker
 
 
