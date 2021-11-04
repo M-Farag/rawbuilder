@@ -20,6 +20,7 @@ class DataSet:
         self._tasks = tasks
         self._schema = None
         self._schema_location = None
+        self.read_schema()
 
     @property
     def schema(self):
@@ -30,9 +31,7 @@ class DataSet:
             dictionary object
         """
         if self._schema is None:
-            schema_path = pkg_resources.resource_filename(__name__, "../schema.yml")
-            with open(schema_path) as file:
-                self._schema = yaml.load(file, Loader=SafeLoader)
+            self.read_schema()
         return self._schema
 
     @property
@@ -43,4 +42,19 @@ class DataSet:
         Returns:
             str
         """
-        return 'Schema file location: {}'.format(pkg_resources.resource_filename(__name__, "../schema.yml"))
+        if self._schema_location is None:
+            self.read_schema()
+        return self._schema_location
+
+    def read_schema(self):
+        """
+        Reading the schema file and init the schema  and the schema_location properties
+
+        Returns:
+            boolean
+        """
+        schema_path = pkg_resources.resource_filename(__name__, "../schema.yml")
+        with open(schema_path) as file:
+            self._schema = yaml.load(file, Loader=SafeLoader)
+            self._schema_location = schema_path
+        return True
