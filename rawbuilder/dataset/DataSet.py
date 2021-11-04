@@ -19,10 +19,28 @@ class DataSet:
         self._size = size
         self._tasks = tasks
         self._schema = None
+        self._schema_location = None
 
     @property
     def schema(self):
-        schema_path = pkg_resources.resource_filename(__name__, "../schema.yml")
-        with open(schema_path) as file:
-            self._schema = yaml.load(file, Loader=SafeLoader)
+        """
+        The Schema as a property
+
+        Returns:
+            dictionary object
+        """
+        if self._schema is None:
+            schema_path = pkg_resources.resource_filename(__name__, "../schema.yml")
+            with open(schema_path) as file:
+                self._schema = yaml.load(file, Loader=SafeLoader)
         return self._schema
+
+    @property
+    def schema_location(self):
+        """
+        The schema file location
+
+        Returns:
+            str
+        """
+        return 'Schema file location: {}'.format(pkg_resources.resource_filename(__name__, "../schema.yml"))
