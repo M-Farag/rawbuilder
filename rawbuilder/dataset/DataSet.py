@@ -1,6 +1,7 @@
 import pkg_resources
 import yaml
 from yaml.loader import SafeLoader
+import pandas as pd
 from ..mocker.Mocker import Mocker
 
 
@@ -21,7 +22,10 @@ class DataSet:
         self._tasks = tasks
         self._schema = None
         self._schema_location = None
+        self._df = None
+
         self.read_schema()
+        self._mocker = Mocker()
 
     @property
     def schema(self):
@@ -66,8 +70,8 @@ class DataSet:
         """
         self.__validate_tasks_exist_in_schema()
 
-        for task_name in self._tasks:
-            self.__build_task(self.schema.get(task_name))
+        for task in self._tasks:
+            self.__build_task(self.schema.get(task))
 
         return True
 
@@ -97,4 +101,8 @@ class DataSet:
         Returns:
             Bool
         """
-        print(task_breakdown)
+        self._df = pd.DataFrame()
+        # iterate over task column names and mock_type
+        for column_name, mock_type in task_breakdown.items():
+            self._df[column_name] = pd.Series(data=self._mocker.build(self._size, mock_type))
+        print(self._df.head(5))
