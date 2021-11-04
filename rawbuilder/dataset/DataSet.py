@@ -24,8 +24,10 @@ class DataSet:
         self._schema_location = None
         self._df = None
 
+        # Config/Set schema and file location
         self.read_schema()
-        self._mocker = Mocker()
+        # Config/Set data mocker object
+        self._mocker = Mocker(self._size)
 
     @property
     def schema(self):
@@ -71,9 +73,7 @@ class DataSet:
         self.__validate_tasks_exist_in_schema()
 
         for task in self._tasks:
-            self.__build_task(self.schema.get(task))
-
-        return True
+            self.__build_task(task, self.schema.get(task))
 
     def __validate_tasks_exist_in_schema(self):
         """
@@ -92,7 +92,7 @@ class DataSet:
 
         return True
 
-    def __build_task(self, task_breakdown: dict):
+    def __build_task(self, task_name: str, task_breakdown: dict):
         """
         Understand and Build all the requested tasks
 
@@ -104,5 +104,9 @@ class DataSet:
         self._df = pd.DataFrame()
         # iterate over task column names and mock_type
         for column_name, mock_type in task_breakdown.items():
-            self._df[column_name] = pd.Series(data=self._mocker.build(self._size, mock_type))
-        print(self._df.head(5))
+            self._df[column_name] = pd.Series(data=self._mocker.build(mock_type))
+        output_file_name = '{}_{}.csv'.format(task_name,self._size)
+        self._df.to_csv(output_file_name, chunksize=100, index=False)
+        self._df = None
+        print("File: {} was created successfully".format(output_file_name))
+
