@@ -1,3 +1,14 @@
+
+## [unreleased]
+
+### Added
+- Function documentation | Mocker Class
+### Changed
+- Arrange Mocker generators functions alphabetically | Mocker Class
+- Naming conventions | Mocker Class
+### Removed
+- Schema yaml, As I migrated the package to use JSON | Schema
+
 ## [0.0.3] - 2021-11-05
 ### Changed
 - Support schema files in JSON instead of YAML, As JSON is a native python lib, and I faced multiple problems on different machines with yaml
