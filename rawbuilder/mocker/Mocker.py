@@ -14,7 +14,8 @@ class Mocker:
         """
         Args:
             mock_type(str|list): the mock type
-
+        TODO:
+            - support list mock types with extra features/filters EX: ["date", "between:(2010,2020)","min:(10)"]
         Returns:
             list
         """
