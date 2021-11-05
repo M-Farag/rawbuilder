@@ -1,7 +1,6 @@
 import pkg_resources
-import yaml
+import json
 import pandas as pd
-from yaml.loader import SafeLoader
 from ..mocker.Mocker import Mocker
 
 
@@ -60,9 +59,9 @@ class DataSet:
         Returns:
             Bool
         """
-        schema_path = pkg_resources.resource_filename(__name__, "../schema.yml")
+        schema_path = pkg_resources.resource_filename(__name__, "../schema.json")
         with open(schema_path) as file:
-            self._schema = yaml.load(file, Loader=SafeLoader)
+            self._schema = json.load(file)
             self._schema_location = schema_path
         return True
 

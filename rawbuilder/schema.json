@@ -1,0 +1,14 @@
+{
+    "user": {
+        "id": "decrement",
+        "first_name": "first_name",
+        "last_name": "last_name",
+        "email": "email",
+        "score": "int"
+    },
+    "temperature": {
+        "index": "increment",
+        "temp_c": ["float","between(1,2)","prefix(c,f)"],
+        "created_at": ["date", "between(2010:2020)","min(10)"]
+    }
+}

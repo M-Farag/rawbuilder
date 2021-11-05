@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['PyYAML', 'pandas', 'faker']
+requirements = ['pandas', 'faker']
 
 test_requirements = ['pytest>=3', ]
 
@@ -42,5 +42,5 @@ setup(
     url='https://github.com/M-Farag/rawbuilder',
     version='0.0.2',
     zip_safe=False,
-    package_data={"": ["*.yml"]},
+    package_data={"": ["*.json"]},
 )
