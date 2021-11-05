@@ -104,8 +104,7 @@ class DataSet:
         # iterate over task column names and mock_type
         for column_name, mock_type in task_breakdown.items():
             self._df[column_name] = pd.Series(data=self._mocker.build(mock_type))
-        output_file_name = '{}_{}.csv'.format(task_name,self._size)
-        self._df.to_csv(output_file_name, chunksize=100, index=False)
+        output_file_name = '{}_{}.csv'.format(task_name, self._size)
+        self._df.to_csv(output_file_name, chunksize=1000, index=False)
         self._df = None
         print("File: {} was created successfully".format(output_file_name))
-
