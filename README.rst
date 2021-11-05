@@ -20,14 +20,17 @@ an elegant datasets factory
 * Documentation: https://rawbuilder.readthedocs.io.
 
 
+
+=================
 Features
---------
+=================
 
 * Schema oriented datasets builder
 
 
-How to use it
--------
+=================
+How to Use it
+=================
 .. code-block:: python
 
     # Import the package into any python app
@@ -42,8 +45,9 @@ How to use it
     # Build the dataset
     ds.build()
 
+=================
 Credits
--------
+=================
 
 This package was created with Cookiecutter_ .
 
