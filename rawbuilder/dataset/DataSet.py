@@ -96,15 +96,22 @@ class DataSet:
         Understand and Build all the requested tasks
 
         Args:
-            task_breakdown(dict): The task breakdown as columns and data-sources
+            task_breakdown(dict): The task breakdown as columns and data-sources/mock-type
         Returns:
             Bool
         """
+        # Init Empty Pandas DataFrame
         self._df = pd.DataFrame()
-        # iterate over task column names and mock_type
+
+        # Iterate over task column names and mock_type
+        # Feature engineering the DataSet
         for column_name, mock_type in task_breakdown.items():
             self._df[column_name] = pd.Series(data=self._mocker.build(mock_type))
+
+        # Saving the file
         output_file_name = '{}_{}.csv'.format(task_name, self._size)
         self._df.to_csv(output_file_name, chunksize=1000, index=False)
         self._df = None
+
+        # Acknowledgement
         print("File: {} was created successfully".format(output_file_name))

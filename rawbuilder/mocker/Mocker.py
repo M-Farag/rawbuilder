@@ -31,7 +31,7 @@ class Mocker:
         Returns:
             function object
         """
-        all_mock_types_generators_functions = {
+        all_data_generators_dict = {
             # D
             "decrement": self.__decrement,
             # E
@@ -44,9 +44,9 @@ class Mocker:
             "last_name": self.__last_name,
         }
 
-        if mock_type in all_mock_types_generators_functions.keys():
-            return all_mock_types_generators_functions.get(mock_type)
-        return all_mock_types_generators_functions.get('int')
+        if mock_type in all_data_generators_dict.keys():
+            return all_data_generators_dict.get(mock_type)
+        return all_data_generators_dict.get('int')
 
     # D
     def __decrement(self):
@@ -55,7 +55,7 @@ class Mocker:
         Returns:
             list
         """
-        return [i for i in range(self._size, 1, -1)]
+        return list(range(self._size, 1, -1))
 
     # E
     def __email(self):
@@ -83,7 +83,7 @@ class Mocker:
         Returns:
             list
         """
-        return [i for i in range(1, self._size, 1)]
+        return list(range(1, self._size, 1))
 
     # L
     def __last_name(self):
