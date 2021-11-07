@@ -103,10 +103,10 @@ class DataSet:
         # Init Empty Pandas DataFrame
         self._df = pd.DataFrame()
 
-        # Iterate over task column names and mock_type
+        # Iterate over task column names and data_type
         # Feature engineering the DataSet
-        for column_name, mock_type in task_breakdown.items():
-            self._df[column_name] = pd.Series(data=self._mocker.build(mock_type))
+        for column_name, data_type in task_breakdown.items():
+            self._df[column_name] = pd.Series(data=self._mocker.build(data_type))
 
         # Saving the file
         output_file_name = '{}_{}.csv'.format(task_name, self._size)

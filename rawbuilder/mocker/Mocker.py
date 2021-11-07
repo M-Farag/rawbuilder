@@ -10,23 +10,23 @@ class Mocker:
         self._size = size
         self._fake = Faker()
 
-    def build(self, mock_type):
+    def build(self, data_type):
         """
         Args:
-            mock_type(str|list): the mock type
+            data_type(str|list): the mock type
         TODO:
             - support list mock types with extra features/filters EX: ["date", "between:(2010,2020)","min:(10)"]
         Returns:
             list
         """
-        return self.__get_data_mock_function(mock_type)()
+        return self.__get_data_mock_function(data_type)()
 
-    def __get_data_mock_function(self, mock_type):
+    def __get_data_mock_function(self, data_type):
         """
         A dictionary lockup function to identify and execute the data mocker function
 
         Args:
-            mock_type(str|list): the mock type function name
+            data_type(str|list): the mock type function name
 
         Returns:
             function object
@@ -44,8 +44,8 @@ class Mocker:
             "last_name": self.__last_name,
         }
 
-        if mock_type in all_data_generators_dict.keys():
-            return all_data_generators_dict.get(mock_type)
+        if data_type in all_data_generators_dict.keys():
+            return all_data_generators_dict.get(data_type)
         return all_data_generators_dict.get('int')
 
     # D
