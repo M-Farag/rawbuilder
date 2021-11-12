@@ -70,7 +70,7 @@ class Mocker:
         Returns:
             list
         """
-        return list(range(self._size, 1, -1))
+        return np.arange(start=self._size+1, stop=1, step=-1)
 
     # E
     def __email(self):
@@ -96,9 +96,9 @@ class Mocker:
         """
         Generate a list of integers between 1 and requested size
         Returns:
-            list
+            np.array
         """
-        return list(range(1, self._size, 1))
+        return np.arange(start=1, stop=self._size+1, step=1)
 
     # L
     def __last_name(self):
@@ -106,7 +106,6 @@ class Mocker:
         Generate a list of last names
         Returns:
             list
-
         """
         return [self._fake.last_name() for i in range(self._size)]
 
