@@ -4,11 +4,11 @@
         "first_name": "first_name",
         "last_name": "last_name",
         "email": "email",
-        "score": "int"
+        "score": "score between,10,110"
     },
     "temperature": {
         "index": "increment",
-        "temp_c": ["float","(between,1,2)","(prefix,c,f)"],
-        "created_at": ["date", "(between,2010,2020)"]
+        "temp_c": "float between,1.0,100.5 prefix,$",
+        "created_at": "date between,2010,2020 prefix,$"
     }
 }

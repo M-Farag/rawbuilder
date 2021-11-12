@@ -1,4 +1,5 @@
 from faker import Faker
+import numpy as np
 
 
 class Mocker:
@@ -9,17 +10,29 @@ class Mocker:
         """
         self._size = size
         self._fake = Faker()
+        self._simple_token = None
+        self._between_token = None
 
-    def build(self, data_type):
+    def build(self, data_type_tokens):
         """
+        Understand the data_type and build the column
         Args:
-            data_type(str|list): the mock type
+            data_type_tokens(str|list): the mock type
         TODO:
-            - support list mock types with extra features/filters EX: ["date", "between:(2010,2020)","min:(10)"]
+            - Support complex column data types
         Returns:
             list
         """
-        return self.__get_data_mock_function(data_type)()
+        token_matrix = [token.split(',') for token in data_type_tokens.strip().split(' ')]
+
+        for row in token_matrix:
+            if len(row) == 1:
+                self._simple_token = row[0]
+            if len(row) > 1 and 'between' in row:
+                row.remove('between')
+                self._between_token = row
+
+        return self.__get_data_mock_function(self._simple_token)()
 
     def __get_data_mock_function(self, data_type):
         """
@@ -42,6 +55,8 @@ class Mocker:
             "int": self.__int,
             # L
             "last_name": self.__last_name,
+            # S
+            "score": self.__score,
         }
 
         if data_type in all_data_generators_dict.keys():
@@ -94,3 +109,18 @@ class Mocker:
 
         """
         return [self._fake.last_name() for i in range(self._size)]
+
+    # S
+    def __score(self):
+        """
+        Generate a list of scores between two numbers
+
+        Returns:
+            list
+        """
+        score_min, score_max = None, None
+        if self._between_token:
+            score_min = min(self._between_token)
+            score_max = max(self._between_token)
+
+        return np.random.randint(score_min, score_max, self._size)
