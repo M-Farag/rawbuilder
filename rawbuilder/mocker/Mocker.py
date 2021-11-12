@@ -55,8 +55,8 @@ class Mocker:
             "int": self.__int,
             # L
             "last_name": self.__last_name,
-            # S
-            "score": self.__score,
+            # R
+            "random_int": self.__random_int,
         }
 
         if data_type in all_data_generators_dict.keys():
@@ -110,16 +110,16 @@ class Mocker:
         return [self._fake.last_name() for i in range(self._size)]
 
     # S
-    def __score(self):
+    def __random_int(self):
         """
-        Generate a list of scores between two numbers
+        Generate a list of random integers between two numbers
 
         Returns:
             list
         """
-        score_min, score_max = None, None
+        rand_min, rand_max = None, None
         if self._between_token:
-            score_min = min(self._between_token)
-            score_max = max(self._between_token)
+            rand_min = min(self._between_token)
+            rand_max = max(self._between_token)
 
-        return np.random.randint(score_min, score_max, self._size)
+        return np.random.randint(rand_min, rand_max, self._size)

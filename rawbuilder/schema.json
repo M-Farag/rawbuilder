@@ -4,7 +4,7 @@
         "first_name": "first_name",
         "last_name": "last_name",
         "email": "email",
-        "score": "score between,10,110"
+        "score": "random_int between,10,110"
     },
     "temperature": {
         "index": "increment",
