@@ -4,19 +4,13 @@
         "first_name": "first_name",
         "last_name": "last_name",
         "email": "email",
-        "score": "random_int between,10,110"
-    },
-    "temperature": {
-        "index": "increment",
-        "temp_c": "float between,1.0,100.5 prefix,$",
-        "created_at": "date between,2010,2020 prefix,$"
     },
     "student": {
         "id": "int",
         "first_name": "first_name",
         "last_name": "last_name",
         "email": "email",
-        "science_test_results": "score between,0,20",
-        "math_test_results": "score between,0,30"
+        "science_test_results": "random_int between,0,20",
+        "math_test_results": "random_int between,0,30"
     }
 }

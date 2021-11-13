@@ -1,12 +1,16 @@
 
 ## [unreleased]
 
+## [0.0.4] - 2021-11-13
 ### Added
-- Function documentation | Mocker Class
+- Functions headers and documentation
 - Introduce the Modifier: Between to support complex column data types
+- Version tracking file
+- Student schema
 ### Changed
 - Arrange Mocker generators functions alphabetically | Mocker Class
 - Naming conventions | Mocker Class
+- Documentation
 ### Removed
 - Schema yaml, As I migrated the package to use JSON | Schema
 
