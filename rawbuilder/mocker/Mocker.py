@@ -1,4 +1,5 @@
 from faker import Faker
+import numpy as np
 
 
 class Mocker:
@@ -9,17 +10,29 @@ class Mocker:
         """
         self._size = size
         self._fake = Faker()
+        self._simple_token = 'int'
+        self._between_token = None
 
-    def build(self, data_type):
+    def build(self, data_type_tokens):
         """
+        Understand the data_type and build the column
         Args:
-            data_type(str|list): the mock type
+            data_type_tokens(str|list): the mock type
         TODO:
-            - support list mock types with extra features/filters EX: ["date", "between:(2010,2020)","min:(10)"]
+            - Support complex column data types
         Returns:
             list
         """
-        return self.__get_data_mock_function(data_type)()
+        token_matrix = [token.split(',') for token in data_type_tokens.strip().split(' ')]
+
+        for row in token_matrix:
+            if len(row) == 1:
+                self._simple_token = row[0]
+            if len(row) == 3 and 'between' in row:
+                row.remove('between')
+                self._between_token = row
+
+        return self.__get_data_mock_function(self._simple_token)()
 
     def __get_data_mock_function(self, data_type):
         """
@@ -42,6 +55,8 @@ class Mocker:
             "int": self.__int,
             # L
             "last_name": self.__last_name,
+            # R
+            "random_int": self.__random_int,
         }
 
         if data_type in all_data_generators_dict.keys():
@@ -55,7 +70,7 @@ class Mocker:
         Returns:
             list
         """
-        return list(range(self._size, 1, -1))
+        return np.arange(start=self._size+1, stop=1, step=-1)
 
     # E
     def __email(self):
@@ -81,9 +96,9 @@ class Mocker:
         """
         Generate a list of integers between 1 and requested size
         Returns:
-            list
+            np.array
         """
-        return list(range(1, self._size, 1))
+        return np.arange(start=1, stop=self._size+1, step=1)
 
     # L
     def __last_name(self):
@@ -91,6 +106,20 @@ class Mocker:
         Generate a list of last names
         Returns:
             list
-
         """
         return [self._fake.last_name() for i in range(self._size)]
+
+    # S
+    def __random_int(self):
+        """
+        Generate a list of random integers between two numbers
+
+        Returns:
+            list
+        """
+        rand_min, rand_max = 0, 100
+        if self._between_token:
+            rand_min = min(self._between_token)
+            rand_max = max(self._between_token)
+
+        return np.random.randint(rand_min, rand_max, size=self._size)
