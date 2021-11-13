@@ -44,7 +44,7 @@ Terminal:
     ds.build()
 
     # Get the schema location to edit with any IDE
-    ds.schema_location()
+    ds.schema_location
 
 Schema
 =================
@@ -79,7 +79,7 @@ Combine Data Modifiers to the above data types, it can adjust values, change the
 
 Modifiers syntax is simple:
 ::
- "modifier,value_1,value_2,value_*"
+ "modifier,argument_1,arg_2,arg_*"
 
 Use the modifier *between* to generate random integer column between 0 and 30:
 ::
