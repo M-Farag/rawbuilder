@@ -28,8 +28,8 @@ Features
 
 How to Use it
 =================
-Terminal:
-::
+
+.. code-block::python
     # Import the package into any python app
     import rawbuilder
 
@@ -54,7 +54,8 @@ Schema
 - The builder will use all the information in the schema to build the required tasks or data sets.
 
 Student data model example:
-::
+
+.. code-block::
     "student": {
         "id": "int",
         "first_name": "first_name",
@@ -77,7 +78,8 @@ Data Modifiers
 Combine Data Modifiers to the above data types, it can adjust values, change the data nature, and gives more control over the final output.
 
 Modifiers syntax is simple:
-::
+
+.. code-block::
  "modifier,value_1,value_2,value_*"
 
 Use the modifier *between* to generate random integer column between 0 and 30:
@@ -92,10 +94,12 @@ All Modifiers
 Use this modifier to set the high-end and low-end for a specific data type.
 
 Syntax:
-::
+
+.. code-block::
  "between,10,1000"
 
 Supported with:
 random_int:
-::
+
+.. code-block::
  "math_test_results": "random_int between,0,30"
