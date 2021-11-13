@@ -10,7 +10,7 @@ class Mocker:
         """
         self._size = size
         self._fake = Faker()
-        self._simple_token = None
+        self._simple_token = 'int'
         self._between_token = None
 
     def build(self, data_type_tokens):
@@ -28,7 +28,7 @@ class Mocker:
         for row in token_matrix:
             if len(row) == 1:
                 self._simple_token = row[0]
-            if len(row) > 1 and 'between' in row:
+            if len(row) == 3 and 'between' in row:
                 row.remove('between')
                 self._between_token = row
 
@@ -117,9 +117,9 @@ class Mocker:
         Returns:
             list
         """
-        rand_min, rand_max = None, None
+        rand_min, rand_max = 0, 100
         if self._between_token:
             rand_min = min(self._between_token)
             rand_max = max(self._between_token)
 
-        return np.random.randint(rand_min, rand_max, self._size)
+        return np.random.randint(rand_min, rand_max, size=self._size)
