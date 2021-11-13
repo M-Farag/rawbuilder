@@ -61,7 +61,7 @@ Student data model example:
         "first_name": "first_name",
         "last_name": "last_name",
         "email": "email",
-        "math_test_results": "random_int between,0,30
+        "math_test_results": "random_int between,0,30"
     }
 
 Data types to can use in the schema
