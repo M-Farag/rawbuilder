@@ -3,7 +3,7 @@
 
 ### Added
 - Function documentation | Mocker Class
-- Support complex column data types
+- Introduce the Modifier: Between to support complex column data types
 ### Changed
 - Arrange Mocker generators functions alphabetically | Mocker Class
 - Naming conventions | Mocker Class
