@@ -22,22 +22,22 @@ an elegant datasets factory
 
 
 Features
-=================
+========
 
 * Schema oriented datasets builder
 
-
 How to Use it
 =================
-Terminal
-::
+
+.. code-block::python
+
     # Import the package into any python app
     import rawbuilder
 
     # Init the dataset object as ds
     ds = rawbuilder.DataSet(
-            size=1000,
-            tasks=['user']
+        size=1000,
+        tasks=['user']
     )
 
     # Build the dataset
@@ -45,7 +45,6 @@ Terminal
 
     # Get the schema location to edit with any IDE
     ds.schema_location()
-
 
 Schema
 =================
@@ -55,19 +54,19 @@ Schema
 - Each property of the model "student" has its data source description.
 - The builder will use all the information in the schema to build the required tasks or data sets.
 
-Student data model example:
-::
+Student data model example
+
+.. code-block::python
     "student": {
         "id": "int",
         "first_name": "first_name",
         "last_name": "last_name",
         "email": "email",
-        "math_test_results": "random_int between,0,30"
+        "math_test_results": "random_int between,0,30
     }
 
-
 Data types to can use in the schema
-********
+************************************
 - int: build a list of integers between 1 and requested dataset size.
 - decrement: build a list of decremented integers between the requested size and 1.
 - random_int: build a list of random integers between 0 and 100 by default.
@@ -80,25 +79,29 @@ Data Modifiers
 Combine Data Modifiers to the above data types, it can adjust values, change the data nature, and gives more control over the final output.
 
 Modifiers syntax is simple:
-::
+
+.. code-block::python
  "modifier,value_1,value_2,value_*"
 
 Use the modifier *between* to generate random integer column between 0 and 30:*
-::
+
+.. code-block::python
  "math_test_results": "random_int between,0,30"
 
 All Modifiers
-***********
+*************
 
 1) **between**
-------------
+--------------
 Use this modifier to set the high-end and low-end for a specific data type.
 
 Syntax:
-::
+
+.. code-block::python
  "between,10,1000"
 
 Supported with:
 random_int:
-::
+
+.. code-block::python
  "math_test_results": "random_int between,0,30"
