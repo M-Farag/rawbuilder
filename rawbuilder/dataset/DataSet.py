@@ -90,7 +90,7 @@ class DataSet:
         # Iterate over task column names and data_type
         # Feature engineering the DataSet
         for column_name, data_type in task_breakdown.items():
-            self._df[column_name] = pd.Series(data=self._mocker.build(data_type))
+            self._df[column_name] = pd.Series(data=self._mocker.build_column(data_type))
 
         # Saving the file
         output_file_name = '{}_{}.csv'.format(task_name, self._size)

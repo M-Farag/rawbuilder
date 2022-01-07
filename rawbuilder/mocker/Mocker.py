@@ -13,7 +13,7 @@ class Mocker:
         self._simple_token = 'int'
         self._between_token = None
 
-    def build(self, data_type_tokens):
+    def build_column(self, data_type_tokens):
         """
         Understand the data_type and build the column
         Args:
