@@ -22,9 +22,6 @@ class DataSet:
         self._schema = None
         self._schema_location = None
 
-        # Config/Set schema and file location
-        self.read_schema()
-
 
     @property
     def schema(self):
@@ -34,8 +31,7 @@ class DataSet:
         Returns:
             dictionary object
         """
-        if self._schema is None:
-            self.read_schema()
+        self.__read_schema()
         return self._schema
 
     @property
@@ -46,11 +42,10 @@ class DataSet:
         Returns:
             str
         """
-        if self._schema_location is None:
-            self.read_schema()
+        self.__read_schema()
         return self._schema_location
 
-    def read_schema(self):
+    def __read_schema(self):
         """
         Reading the schema file and init the schema  and the schema_location properties
 
@@ -66,6 +61,9 @@ class DataSet:
         """
         Build the dataset
         """
+
+        # Config/Set schema and file location
+        self.__read_schema()
 
         if self._task not in self.schema.keys():
             raise ValueError('Task: {} Not found in the schema file'.format(self._task))
