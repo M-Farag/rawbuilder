@@ -37,7 +37,7 @@ Terminal:
     # Init the dataset object as ds
     ds = rawbuilder.DataSet(
         size=1000,
-        tasks=['user']
+        task='user'
     )
 
     # Build the dataset

@@ -6,19 +6,19 @@ from ..mocker.Mocker import Mocker
 
 class DataSet:
 
-    def __init__(self, size: int, tasks: list):
+    def __init__(self, size: int, task: str):
         """
         DataSet object constructor
 
         Args:
             size (int): the maximum rows size per dataset
-            tasks (list): List of datasets to be built
+            task (list): List of datasets to be built
 
         Returns:
             object dataset
         """
         self._size = size
-        self._tasks = tasks
+        self._task = task
         self._schema = None
         self._schema_location = None
         self._df = None
@@ -69,27 +69,11 @@ class DataSet:
         """
         Build the dataset
         """
-        self.__validate_tasks_exist_in_schema()
 
-        for task in self._tasks:
-            self.__build_task(task, self.schema.get(task))
+        if self._task not in self.schema.keys():
+            raise ValueError('Task: {} Not found in the schema file'.format(self._task))
 
-    def __validate_tasks_exist_in_schema(self):
-        """
-        Validate that all the required tasks are included in the schema
-
-        Raises:
-            ValueError(Exception): If the user provided a task that is not in the schema file
-
-        Returns:
-            Bool
-        """
-
-        for task in self._tasks:
-            if task not in self.schema.keys():
-                raise ValueError('Task: {} Not found in the schema file'.format(task))
-
-        return True
+        self.__build_task(self._task, self.schema.get(self._task))
 
     def __build_task(self, task_name: str, task_breakdown: dict):
         """
