@@ -1,5 +1,8 @@
 
 ## [unreleased]
+### Changed
+- Simplify logic: Processing one task a time
+
 
 ## [0.0.4] - 2021-11-13
 ### Added
