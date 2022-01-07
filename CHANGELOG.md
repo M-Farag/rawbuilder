@@ -3,6 +3,7 @@
 ### Changed
 - Simplify logic: Processing one task a time
 - Simplify logic: Cleaner columns data types logic
+- Simplify logic: Clean up the house and remove the useless functions and logic
 
 
 ## [0.0.4] - 2021-11-13
