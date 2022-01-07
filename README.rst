@@ -37,7 +37,7 @@ Terminal:
     # Init the dataset object as ds
     ds = rawbuilder.DataSet(
         size=1000,
-        tasks=['user']
+        task='user'
     )
 
     # Build the dataset
@@ -88,9 +88,9 @@ Use the modifier *between* to generate random integer column between 0 and 30:
 All Modifiers
 *************
 
-1) **between**
+1) **ranges**
 --------------
-Use this modifier to set the high-end and low-end for a specific data type.
+Use this modifier to set the high-end and low-end for a specific data type
 
 Syntax:
 ::

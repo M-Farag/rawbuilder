@@ -6,27 +6,25 @@ from ..mocker.Mocker import Mocker
 
 class DataSet:
 
-    def __init__(self, size: int, tasks: list):
+    def __init__(self, size: int, task: str):
         """
         DataSet object constructor
 
         Args:
             size (int): the maximum rows size per dataset
-            tasks (list): List of datasets to be built
+            task (list): List of datasets to be built
 
         Returns:
             object dataset
         """
         self._size = size
-        self._tasks = tasks
+        self._task = task
         self._schema = None
         self._schema_location = None
-        self._df = None
 
         # Config/Set schema and file location
         self.read_schema()
-        # Config/Set data mocker object
-        self._mocker = Mocker(self._size)
+
 
     @property
     def schema(self):
@@ -63,55 +61,33 @@ class DataSet:
         with open(schema_path) as file:
             self._schema = json.load(file)
             self._schema_location = schema_path
-        return True
 
     def build(self):
         """
         Build the dataset
         """
-        self.__validate_tasks_exist_in_schema()
 
-        for task in self._tasks:
-            self.__build_task(task, self.schema.get(task))
+        if self._task not in self.schema.keys():
+            raise ValueError('Task: {} Not found in the schema file'.format(self._task))
 
-    def __validate_tasks_exist_in_schema(self):
-        """
-        Validate that all the required tasks are included in the schema
+        # Task break down columns & data_types
+        task_breakdown = self.schema.get(self._task)
 
-        Raises:
-            ValueError(Exception): If the user provided a task that is not in the schema file
-
-        Returns:
-            Bool
-        """
-
-        for task in self._tasks:
-            if task not in self.schema.keys():
-                raise ValueError('Task: {} Not found in the schema file'.format(task))
-
-        return True
-
-    def __build_task(self, task_name: str, task_breakdown: dict):
-        """
-        Understand and Build all the requested tasks
-
-        Args:
-            task_breakdown(dict): The task breakdown as columns and data-sources/mock-type
-        Returns:
-            Bool
-        """
         # Init Empty Pandas DataFrame
-        self._df = pd.DataFrame()
+        df = pd.DataFrame()
+
+        # Config/Set data mocker object
+        mock = Mocker(self._size)
 
         # Iterate over task column names and data_type
         # Feature engineering the DataSet
         for column_name, data_type in task_breakdown.items():
-            self._df[column_name] = pd.Series(data=self._mocker.build(data_type))
+            df[column_name] = pd.Series(data=mock.build_column(data_type))
 
         # Saving the file
-        output_file_name = '{}_{}.csv'.format(task_name, self._size)
-        self._df.to_csv(output_file_name, chunksize=1000, index=False)
-        self._df = None
+        output_file_name = '{}_{}.csv'.format(self._task, self._size)
+        df.to_csv(output_file_name, chunksize=1000, index=False)
+        del df, mock, task_breakdown
 
         # Acknowledgement
         print("File: {} was created successfully".format(output_file_name))

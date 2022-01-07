@@ -10,29 +10,28 @@ class Mocker:
         """
         self._size = size
         self._fake = Faker()
-        self._simple_token = 'int'
-        self._between_token = None
+        self._ranges = None
 
-    def build(self, data_type_tokens):
+    def build_column(self, data_type: str):
         """
         Understand the data_type and build the column
         Args:
-            data_type_tokens(str|list): the mock type
+            data_type(str): the column data type and modifiers
         TODO:
             - Support complex column data types
         Returns:
             list
         """
-        token_matrix = [token.split(',') for token in data_type_tokens.strip().split(' ')]
+        data_type_parts = data_type.strip().split(' ')
 
-        for row in token_matrix:
-            if len(row) == 1:
-                self._simple_token = row[0]
-            if len(row) == 3 and 'between' in row:
-                row.remove('between')
-                self._between_token = row
+        for part in data_type_parts:
+            """ Build ranges"""
+            if part.startswith('between'):
+                self._ranges = part.strip().split(',')
+                self._ranges.remove('between')
 
-        return self.__get_data_mock_function(self._simple_token)()
+        """Build column using the first data type part"""
+        return self.__get_data_mock_function(data_type_parts[0])()
 
     def __get_data_mock_function(self, data_type):
         """
@@ -70,7 +69,7 @@ class Mocker:
         Returns:
             list
         """
-        return np.arange(start=self._size+1, stop=1, step=-1)
+        return np.arange(start=self._size + 1, stop=1, step=-1)
 
     # E
     def __email(self):
@@ -98,7 +97,7 @@ class Mocker:
         Returns:
             np.array
         """
-        return np.arange(start=1, stop=self._size+1, step=1)
+        return np.arange(start=1, stop=self._size + 1, step=1)
 
     # L
     def __last_name(self):
@@ -118,8 +117,7 @@ class Mocker:
             list
         """
         rand_min, rand_max = 0, 100
-        if self._between_token:
-            rand_min = min(self._between_token)
-            rand_max = max(self._between_token)
+        if self._ranges:
+            rand_min,rand_max = min(self._ranges),max(self._ranges)
 
         return np.random.randint(rand_min, rand_max, size=self._size)
