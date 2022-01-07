@@ -1,5 +1,7 @@
 
 ## [unreleased]
+
+## [0.0.5] - 2022-01-07
 ### Changed
 - Simplify logic: Processing one task a time
 - Simplify logic: Cleaner columns data types logic
