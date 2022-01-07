@@ -1,5 +1,9 @@
 
 ## [unreleased]
+### Changed
+- Rename the mocker class to factory
+- reduce amount of dataset class properties (size,task) and add them to a hashmap object
+
 
 ## [0.0.5] - 2022-01-07
 ### Changed

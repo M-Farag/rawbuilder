@@ -1,7 +1,7 @@
 import pkg_resources
 import json
 import pandas as pd
-from ..mocker.Mocker import Mocker
+from ..factory.Factory import Factory
 
 
 class DataSet:
@@ -17,11 +17,8 @@ class DataSet:
         Returns:
             object dataset
         """
-        self._size = size
-        self._task = task
-        self._schema = None
-        self._schema_location = None
-
+        self._config = {'size': size, 'task': task}
+        self._schema, self._schema_location = None, None
 
     @property
     def schema(self):
@@ -65,27 +62,27 @@ class DataSet:
         # Config/Set schema and file location
         self.__read_schema()
 
-        if self._task not in self.schema.keys():
-            raise ValueError('Task: {} Not found in the schema file'.format(self._task))
+        if self._config['task'] not in self.schema.keys():
+            raise ValueError('Task: {} Not found in the schema file'.format(self._config['task']))
 
         # Task break down columns & data_types
-        task_breakdown = self.schema.get(self._task)
+        task_breakdown = self.schema.get(self._config['task'])
 
         # Init Empty Pandas DataFrame
         df = pd.DataFrame()
 
-        # Config/Set data mocker object
-        mock = Mocker(self._size)
+        # Config/Set data factory object
+        factory = Factory(self._config['size'])
 
         # Iterate over task column names and data_type
         # Feature engineering the DataSet
         for column_name, data_type in task_breakdown.items():
-            df[column_name] = pd.Series(data=mock.build_column(data_type))
+            df[column_name] = pd.Series(data=factory.build_column(data_type))
 
         # Saving the file
-        output_file_name = '{}_{}.csv'.format(self._task, self._size)
+        output_file_name = '{}_{}.csv'.format(self._config['task'], self._config['size'])
         df.to_csv(output_file_name, chunksize=1000, index=False)
-        del df, mock, task_breakdown
+        del df, factory, task_breakdown
 
         # Acknowledgement
         print("File: {} was created successfully".format(output_file_name))
