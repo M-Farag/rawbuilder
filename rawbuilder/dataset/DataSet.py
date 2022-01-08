@@ -13,10 +13,17 @@ class DataSet:
         Args:
             size (int): the maximum rows size per dataset
             task (list): List of datasets to be built
-
+        Raises:
+            TypeError: when size is not int, task is not str
         Returns:
             object dataset
         """
+        if not isinstance(size, int):
+            raise TypeError('Data set size must be an integer')
+
+        if not isinstance(task,str):
+            raise TypeError('Task name must be a string')
+
         self._config = {'size': size, 'task': task}
         self._schema, self._schema_location = None, None
 
