@@ -31,7 +31,7 @@ class TestInitDataObject(object):
         assert ds._schema_location is None
 
     """bad arguments"""
-
+    # @todo test for None values
     def test_init_rw_object_with_size_float_and_task_string(self):
         with pytest.raises(TypeError) as exception_info:
             ds = rw.DataSet(1.1, 'user')
