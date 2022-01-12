@@ -24,7 +24,7 @@ class DataSet:
         if not isinstance(task, str):
             raise TypeError('Task name must be a string')
 
-        self._config = {'size': size, 'task': task}
+        self._config = {'size': size, 'task': task, 'schema_file_name': 'schema.json'}
         # @todo move schema & schema_location to the config dict
         self._schema, self._schema_location = None, None
 
@@ -36,7 +36,7 @@ class DataSet:
         Returns:
             dictionary object
         """
-        self.__read_schema()
+        self._read_schema_file()
         # @todo return from the config dict
         return self._schema
 
@@ -48,30 +48,36 @@ class DataSet:
         Returns:
             str
         """
-        self.__read_schema()
+        self._read_schema_file()
         # @todo return from the config dict
         return self._schema_location
 
-    def __read_schema(self):
+    def _read_schema_file(self):
         """
         Reading the schema file and init the schema  and the schema_location properties
 
         Returns:
             Bool
         """
-        # @todo must validate file exists
-        schema_path = pkg_resources.resource_filename(__name__, "../schema.json")
-        with open(schema_path) as file:
-            # @todo is it a valid JSON
-            self._schema = json.load(file)
-            self._schema_location = schema_path
+        try:
+            schema_path = pkg_resources.resource_filename(__name__, "../{}".format(self._config.get('schema_file_name')))
+
+            with open(schema_path) as file:
+                # @todo is it a valid JSON
+                self._schema = json.load(file)
+                self._schema_location = schema_path
+        except FileNotFoundError:
+            raise FileNotFoundError('Schema file not found')
+        except ValueError:
+            raise ValueError('Schema JSON is invalid')
+
 
     def build(self):
         """
         Build the dataset
         """
 
-        self.__read_schema()
+        self._read_schema_file()
 
         if self._config.get('task') not in self.schema.keys():
             raise ValueError('Task: {} Not found in the schema file'.format(self._config.get('task')))
