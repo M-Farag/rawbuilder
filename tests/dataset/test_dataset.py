@@ -78,6 +78,8 @@ class TestReadSchema(object):
             ds._read_schema_file()
         assert exception_info.match('Schema file not found')
 
+    # @todo create an invalid json file and add its name to the config
+    # @todo delete the file after you're done
     def test_read_schema_file_that_is_not_json_raise_value_error(self):
         with pytest.raises(ValueError) as exception_info:
             ds = rw.DataSet(1,'user')
