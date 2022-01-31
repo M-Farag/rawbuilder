@@ -1,9 +1,9 @@
-import pytest
+import pytest,json
 
 import rawbuilder.dataset as rw
 
 
-class TestInitDataObject(object):
+class TestInitDataSetObject(object):
     """with Good arguments"""
 
     def test_init_object_with_size_init_and_task_string_1(self):
@@ -68,20 +68,36 @@ class TestInitDataObject(object):
 
 
 class TestReadSchema(object):
-    """Bad group"""
 
+    @pytest.fixture
+    def invalid_schema_file_fixture(self,tmpdir):
+        invalid_file_path = tmpdir.join('invalid.json')
+        with open(invalid_file_path,'w') as file:
+            file.write("hello world, not json data \n")
+        yield invalid_file_path
+
+    @pytest.fixture
+    def valid_schema_file_fixture(self,tmpdir):
+        valid_json_file_path = tmpdir.join('valid.json')
+        with open(valid_json_file_path,'w') as file:
+            file.write('{"foo":"bar"}')
+        yield valid_json_file_path
+
+    """Bad group"""
     def test_read_schema_file_not_found_raise_file_not_found_error(self):
         with pytest.raises(FileNotFoundError) as exception_info:
             ds = rw.DataSet(1, 'user')
-            # Change file name
-            ds._config['schema_file_name'] = 'anything.json'
-            ds._read_schema_file()
+            ds._read_schema_file('anything.json')
         assert exception_info.match('Schema file not found')
 
-    # @todo create an invalid json file and add its name to the config
-    # @todo delete the file after you're done
-    def test_read_schema_file_that_is_not_json_raise_value_error(self):
+    def test_read_schema_file_that_is_not_json_raise_value_error(self,invalid_schema_file_fixture):
         with pytest.raises(ValueError) as exception_info:
             ds = rw.DataSet(1,'user')
-            ds._read_schema_file()
+            ds._read_schema_file(invalid_schema_file_fixture)
         assert exception_info.match('Schema JSON is invalid')
+
+    """Good Arguments"""
+    def test_read_schema_file_that_is_a_valid_json(self,valid_schema_file_fixture):
+        ds = rw.DataSet(1, 'user')
+        ds._read_schema_file(valid_schema_file_fixture)
+        assert 'bar' == ds._schema['foo']

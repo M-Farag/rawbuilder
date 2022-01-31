@@ -52,7 +52,7 @@ class DataSet:
         # @todo return from the config dict
         return self._schema_location
 
-    def _read_schema_file(self):
+    def _read_schema_file(self, schema_path=None):
         """
         Reading the schema file and init the schema  and the schema_location properties
 
@@ -60,17 +60,16 @@ class DataSet:
             Bool
         """
         try:
-            schema_path = pkg_resources.resource_filename(__name__, "../{}".format(self._config.get('schema_file_name')))
+            if schema_path is None:
+                schema_path = pkg_resources.resource_filename(__name__, "../{}".format(self._config.get('schema_file_name')))
 
             with open(schema_path) as file:
-                # @todo is it a valid JSON
                 self._schema = json.load(file)
                 self._schema_location = schema_path
         except FileNotFoundError:
             raise FileNotFoundError('Schema file not found')
         except ValueError:
             raise ValueError('Schema JSON is invalid')
-
 
     def build(self):
         """
