@@ -26,7 +26,7 @@ class DataSet:
 
         self._config = {'size': size, 'task': task, 'schema_file_name': 'schema.json'}
         # @todo move schema & schema_location to the config dict
-        self._schema, self._schema_location = None, None
+        self._schema, self._schema_path = None, None
 
     @property
     def schema(self):
@@ -50,7 +50,7 @@ class DataSet:
         """
         self._read_schema_file()
         # @todo return from the config dict
-        return self._schema_location
+        return self._schema_path
 
     def _read_schema_file(self, schema_path=None):
         """
@@ -65,7 +65,7 @@ class DataSet:
 
             with open(schema_path) as file:
                 self._schema = json.load(file)
-                self._schema_location = schema_path
+                self._schema_path = schema_path
         except FileNotFoundError:
             raise FileNotFoundError('Schema file not found')
         except ValueError:

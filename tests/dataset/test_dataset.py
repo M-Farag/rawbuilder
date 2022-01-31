@@ -13,7 +13,7 @@ class TestInitDataSetObject(object):
         assert ds._config.get('task') == 'task'
         assert ds._config.get('schema_file_name') == 'schema.json'
         assert ds._schema is None
-        assert ds._schema_location is None
+        assert ds._schema_path is None
 
     def test_init_rw_object_with_size_int_and_task_string_2(self):
         ds = rw.DataSet(1000000, 'user')
@@ -22,7 +22,7 @@ class TestInitDataSetObject(object):
         assert ds._config.get('task') == 'user'
         assert ds._config.get('schema_file_name') == 'schema.json'
         assert ds._schema is None
-        assert ds._schema_location is None
+        assert ds._schema_path is None
 
     def test_init_rw_object_with_size_int_and_task_string_3(self):
         ds = rw.DataSet(10000, 'student')
@@ -31,7 +31,7 @@ class TestInitDataSetObject(object):
         assert ds._config.get('task') == 'student'
         assert ds._config.get('schema_file_name') == 'schema.json'
         assert ds._schema is None
-        assert ds._schema_location is None
+        assert ds._schema_path is None
 
     """bad arguments"""
 
