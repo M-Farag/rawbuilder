@@ -11,8 +11,10 @@ rawbuilder
         :alt: Documentation Status
 
 .. image:: https://app.travis-ci.com/M-Farag/rawbuilder.svg?branch=main
-    :target: https://app.travis-ci.com/M-Farag/rawbuilder
+        :target: https://app.travis-ci.com/M-Farag/rawbuilder
 
+.. image:: https://codecov.io/gh/M-Farag/rawbuilder/branch/main/graph/badge.svg?token=H6YCKETJRV
+        :target: https://codecov.io/gh/M-Farag/rawbuilder
 
 
 an elegant datasets factory
