@@ -1,5 +1,7 @@
 
 ## [unreleased]
+
+## [0.0.6] - 2022-02-01
 ### Added
 - Unit Tests
 - DataSet now accepts a path to any custom JSON schema
