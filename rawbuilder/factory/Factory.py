@@ -2,7 +2,7 @@ from faker import Faker
 import numpy as np
 
 
-class Mocker:
+class Factory:
 
     def __init__(self, size: int):
         """
@@ -35,7 +35,7 @@ class Mocker:
 
     def __get_data_mock_function(self, data_type):
         """
-        A dictionary lockup function to identify and execute the data mocker function
+        A dictionary lockup function to identify and execute the data factory function
 
         Args:
             data_type(str|list): the mock type function name

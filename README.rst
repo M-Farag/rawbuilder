@@ -37,21 +37,22 @@ Terminal:
     # Init the dataset object as ds
     ds = rawbuilder.DataSet(
         size=1000,
-        task='user'
+        task='user',
+        schema_path='path/to/any/custom/json/schema'
     )
 
     # Build the dataset
     ds.build()
 
     # Get the schema location to edit with any IDE
-    ds.schema_location
+    ds.schema_path
 
 Schema
 =================
 - The Schema is a JSON object that describes three main components.
-- The *model names*, the *column names*, and the *data source* per column.
+- The *model names*, the *column names*, and the *data types* per column.
 - Note the below code-block, The model name is "Student", and it contain 4 properties [id,first_name,email,math_test_results].
-- Each property of the model "student" has its data source description.
+- Each property of the model "student" is called a task and it has its columns and data source description.
 - The builder will use all the information in the schema to build the required tasks or data sets.
 
 Student data model example:
@@ -66,12 +67,12 @@ Student data model example:
 
 Data types to can use in the schema
 ************************************
-- int: build a list of integers between 1 and requested dataset size.
-- decrement: build a list of decremented integers between the requested size and 1.
-- random_int: build a list of random integers between 0 and 100 by default.
-- first_name: build a list of first names.
-- last_name: build a list of last names.
-- email: build a list of fake emails.
+- int: build a column of integers between 1 and requested dataset size.
+- decrement: build a column of decremented integers between the requested size and 1.
+- random_int: build a column of random integers between 0 and 100 by default.
+- first_name: build a column of first names.
+- last_name: build a column of last names.
+- email: build a column of fake emails.
 
 Data Modifiers
 ==============
@@ -88,7 +89,7 @@ Use the modifier *between* to generate random integer column between 0 and 30:
 All Modifiers
 *************
 
-1) **ranges**
+1) **Ranges**
 --------------
 Use this modifier to set the high-end and low-end for a specific data type
 

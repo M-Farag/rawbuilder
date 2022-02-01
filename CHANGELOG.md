@@ -1,5 +1,19 @@
 
 ## [unreleased]
+
+## [0.0.6] - 2022-02-01
+### Added
+- Unit Tests
+- DataSet now accepts a path to any custom JSON schema
+
+### Changed
+- Rename the mocker class to factory
+- reduce amount of dataset class properties (size,task) and add them to a hashmap object
+- Rename Schema_location to Schema_path
+- Raise exceptions with invalid JSON schema files
+
+
+## [0.0.5] - 2022-01-07
 ### Changed
 - Simplify logic: Processing one task a time
 - Simplify logic: Cleaner columns data types logic
