@@ -6,13 +6,15 @@ from ..factory.Factory import Factory
 
 class DataSet:
 
-    def __init__(self, size: int, task: str):
+    def __init__(self, size: int, task: str, schema_path=None):
         """
         DataSet object constructor
 
         Args:
             size (int): the maximum rows size per dataset
             task (list): List of datasets to be built
+            schema_path (mixed): The path to an optional schema
+
         Raises:
             TypeError: when size is not int, task is not str
         Returns:
@@ -24,9 +26,8 @@ class DataSet:
         if not isinstance(task, str):
             raise TypeError('Task name must be a string')
 
-        self._config = {'size': size, 'task': task, 'schema_file_name': 'schema.json'}
-        # @todo move schema & schema_location to the config dict
-        self._schema, self._schema_path = None, None
+        self._config = {'size': size, 'task': task, 'default_schema_file_name': 'schema.json'}
+        self._schema, self._schema_path = None, schema_path
 
     @property
     def schema(self):
@@ -41,7 +42,7 @@ class DataSet:
         return self._schema
 
     @property
-    def schema_location(self):
+    def schema_path(self):
         """
         The schema file location
 
@@ -52,7 +53,7 @@ class DataSet:
         # @todo return from the config dict
         return self._schema_path
 
-    def _read_schema_file(self, schema_path=None):
+    def _read_schema_file(self):
         """
         Reading the schema file and init the schema  and the schema_location properties
 
@@ -60,12 +61,13 @@ class DataSet:
             Bool
         """
         try:
-            if schema_path is None:
-                schema_path = pkg_resources.resource_filename(__name__, "../{}".format(self._config.get('schema_file_name')))
+            if self._schema_path is None:
+                self._schema_path = pkg_resources.resource_filename(__name__,
+                                                              "../{}".format(self._config.get('default_schema_file_name')))
 
-            with open(schema_path) as file:
+            with open(self._schema_path) as file:
                 self._schema = json.load(file)
-                self._schema_path = schema_path
+
         except FileNotFoundError:
             raise FileNotFoundError('Schema file not found')
         except ValueError:
