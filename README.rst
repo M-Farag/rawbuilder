@@ -37,14 +37,15 @@ Terminal:
     # Init the dataset object as ds
     ds = rawbuilder.DataSet(
         size=1000,
-        task='user'
+        task='user',
+        schema_path='path/to/any/custom/json/schema'
     )
 
     # Build the dataset
     ds.build()
 
     # Get the schema location to edit with any IDE
-    ds.schema_location
+    ds.schema_path
 
 Schema
 =================
