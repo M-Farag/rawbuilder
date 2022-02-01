@@ -5,6 +5,7 @@
 ### Added
 - Unit Tests
 - DataSet now accepts a path to any custom JSON schema
+- CICD Support
 
 ### Changed
 - Rename the mocker class to factory
