@@ -7,10 +7,15 @@ python:
   - 3.6
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -e .
+install:
+    - pip install -e .
+    - pip install pytest-cov codecov
 
 # Command to run tests, e.g. python setup.py test
-script: pytest tests
+script: pytest --cov=rawbuilder tests
+
+after_success:
+    - codecov
 
 branches:
   only:

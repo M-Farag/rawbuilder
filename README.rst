@@ -10,6 +10,8 @@ rawbuilder
         :target: https://rawbuilder.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
+.. image:: https://app.travis-ci.com/M-Farag/rawbuilder.svg?branch=main
+    :target: https://app.travis-ci.com/M-Farag/rawbuilder
 
 
 
