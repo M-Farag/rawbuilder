@@ -63,7 +63,8 @@ class DataSet:
         try:
             if self._schema_path is None:
                 self._schema_path = pkg_resources.resource_filename(__name__,
-                                                              "../{}".format(self._config.get('default_schema_file_name')))
+                                                                    "../{}".format(
+                                                                        self._config.get('default_schema_file_name')))
 
             with open(self._schema_path) as file:
                 self._schema = json.load(file)
@@ -73,10 +74,24 @@ class DataSet:
         except ValueError:
             raise ValueError('Schema JSON is invalid')
 
-    def build(self):
+    def build(self, return_csv=True, return_df=False):
         """
         Build the dataset
+
+        Args:
+            return_csv(bool): Return and write the dataset as a CSV file
+            return_df(bool): Return the pandas dataframe after building it.
+
+        Raises:
+              ValueError: If the required task is not in the schema file
+              ValueError: If the return_csv or return_df are not bool
+
+        Returns:
+              Pandas DataFrame (optional)
         """
+
+        if not isinstance(return_csv, bool) or not isinstance(return_df, bool):
+            raise ValueError('Arguments return_csv, return_df must of type bool')
 
         self._read_schema_file()
 
@@ -91,7 +106,14 @@ class DataSet:
             df[column_name] = pd.Series(data=factory.build_column(column_data_type))
 
         output_file_name = '{}_{}.csv'.format(self._config.get('task'), self._config.get('size'))
-        df.to_csv(output_file_name, chunksize=1000, index=False)
-        del df, factory, task_breakdown
 
+        if return_csv:
+            df.to_csv(output_file_name, chunksize=1000, index=False)
         print("File: {} was created successfully".format(output_file_name))
+
+        del factory, task_breakdown
+
+        if return_df:
+            return df
+        del df
+

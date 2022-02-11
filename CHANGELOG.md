@@ -1,5 +1,9 @@
 
 ## [unreleased]
+### Added
+- More Unit tests
+- Add argument to the build function to return the pandas dataframe
+- Add argument to the build function to write the dataset as a CSV file
 
 ## [0.0.6] - 2022-02-01
 ### Added

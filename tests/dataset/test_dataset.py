@@ -75,7 +75,7 @@ class TestInitDataSetObject(object):
         assert exception_info.match('Task name must be a string')
 
 
-class TestReadSchema(object):
+class TestReadSchemaFunction(object):
 
     @pytest.fixture
     def invalid_schema_file_fixture(self, tmpdir):
@@ -111,3 +111,29 @@ class TestReadSchema(object):
         ds = rw.DataSet(1, 'user', valid_schema_file_fixture)
         ds._read_schema_file()
         assert 'bar' == ds.schema['foo']
+
+
+class TestBuildFunction(object):
+    """Setup"""
+
+    @pytest.fixture()
+    def valid_schema_file_fixture(self, tmpdir):
+        valid_file_path = tmpdir.join('schema.json')
+        with open(valid_file_path, 'w') as file:
+            file.write('{"task": {"column":"data_type"} }')
+        yield valid_file_path
+
+    """Bad arguments"""
+
+    def test_build_with_undefined_task_name_will_raise_value_error(self, valid_schema_file_fixture):
+        with pytest.raises(ValueError) as exception_info:
+            task_name = 'any_task'
+            ds = rw.DataSet(100, task_name, valid_schema_file_fixture)
+            ds.build()
+        assert exception_info.match('Task: {} Not found in the schema file'.format(task_name))
+
+    def test_build_with_non_boolean_return_csv_argument_raise_value_error(self,valid_schema_file_fixture):
+        with pytest.raises(ValueError) as exception_info:
+            ds = rw.DataSet(1,'task',valid_schema_file_fixture)
+            ds.build(return_csv=123)
+        assert exception_info.match('Arguments return_csv, return_df must of type bool')
