@@ -135,5 +135,5 @@ class TestBuildFunction(object):
     def test_build_with_non_boolean_return_csv_argument_raise_value_error(self,valid_schema_file_fixture):
         with pytest.raises(ValueError) as exception_info:
             ds = rw.DataSet(1,'task',valid_schema_file_fixture)
-            ds.build(return_csv=123)
+            ds.build(export_csv=123)
         assert exception_info.match('Arguments return_csv, return_df must of type bool')

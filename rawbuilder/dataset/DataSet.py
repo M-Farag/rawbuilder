@@ -74,12 +74,12 @@ class DataSet:
         except ValueError:
             raise ValueError('Schema JSON is invalid')
 
-    def build(self, return_csv=True, return_df=False):
+    def build(self, export_csv=True, return_df=False):
         """
         Build the dataset
 
         Args:
-            return_csv(bool): Return and write the dataset as a CSV file
+            export_csv(bool): Return and write the dataset as a CSV file
             return_df(bool): Return the pandas dataframe after building it.
 
         Raises:
@@ -90,7 +90,7 @@ class DataSet:
               Pandas DataFrame (optional)
         """
 
-        if not isinstance(return_csv, bool) or not isinstance(return_df, bool):
+        if not isinstance(export_csv, bool) or not isinstance(return_df, bool):
             raise ValueError('Arguments return_csv, return_df must of type bool')
 
         self._read_schema_file()
@@ -107,7 +107,7 @@ class DataSet:
 
         output_file_name = '{}_{}.csv'.format(self._config.get('task'), self._config.get('size'))
 
-        if return_csv:
+        if export_csv:
             df.to_csv(output_file_name, chunksize=1000, index=False)
         print("File: {} was created successfully".format(output_file_name))
 
