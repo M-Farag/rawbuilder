@@ -1,3 +1,5 @@
+import os.path
+
 import pytest
 
 import rawbuilder.dataset as rw
@@ -120,10 +122,39 @@ class TestBuildFunction(object):
     def valid_schema_file_fixture(self, tmpdir):
         valid_file_path = tmpdir.join('schema.json')
         with open(valid_file_path, 'w') as file:
-            file.write('{"task": {"column":"data_type"} }')
+            file.write('{"task": {"id":"int"} }')
         yield valid_file_path
 
-    """Bad arguments"""
+    """ Good group"""
+    def test_build_without_path_and_dataset_size_will_create_a_file_with_expected_size(self,valid_schema_file_fixture):
+        size = 2
+        ds = rw.DataSet(size, 'task', valid_schema_file_fixture)
+        ds.build()
+        expected_file = 'task_{}.csv'.format(size)
+        with open(expected_file, 'r') as file:
+            assert file.readlines() == ['id\n', '1\n', '2\n']
+        assert os.path.exists(expected_file)
+        os.remove(expected_file)
+
+    def test_build_with_defined_output_path_will_create_a_file_in_path(self, tmpdir, valid_schema_file_fixture):
+        tmp_path = tmpdir.dirpath()
+        ds = rw.DataSet(1, 'task', valid_schema_file_fixture)
+        ds.build(output_path=tmp_path)
+        expected_file = '{}/{}'.format(tmp_path,'task_1.csv')
+        assert os.path.exists(expected_file)
+
+    def test_build_with_defined_path_and_dataset_size_will_create_a_file_with_expected_size(self,tmpdir,valid_schema_file_fixture):
+        tmp_path = tmpdir.dirpath()
+        size = 2
+        ds = rw.DataSet(size, 'task', valid_schema_file_fixture)
+        ds.build(output_path=tmp_path)
+        expected_file = '{}/task_{}.csv'.format(tmp_path, size)
+        with open(expected_file, 'r') as file:
+            assert file.readlines() == ['id\n', '1\n', '2\n']
+        assert os.path.exists(expected_file)
+
+
+    """Bad group"""
 
     def test_build_with_undefined_task_name_will_raise_value_error(self, valid_schema_file_fixture):
         with pytest.raises(ValueError) as exception_info:
@@ -132,8 +163,8 @@ class TestBuildFunction(object):
             ds.build()
         assert exception_info.match('Task: {} Not found in the schema file'.format(task_name))
 
-    def test_build_with_non_boolean_return_csv_argument_raise_value_error(self,valid_schema_file_fixture):
+    def test_build_with_non_boolean_return_csv_argument_raise_value_error(self, valid_schema_file_fixture):
         with pytest.raises(ValueError) as exception_info:
-            ds = rw.DataSet(1,'task',valid_schema_file_fixture)
+            ds = rw.DataSet(1, 'task', valid_schema_file_fixture)
             ds.build(export_csv=123)
         assert exception_info.match('Arguments return_csv, return_df must of type bool')

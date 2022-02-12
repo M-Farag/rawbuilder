@@ -2,8 +2,9 @@
 ## [unreleased]
 ### Added
 - More Unit tests
-- Add argument to the build function to return the pandas dataframe
-- Add argument to the build function to write the dataset as a CSV file
+- Add argument (return_df) to the build function to return the pandas dataframe
+- Add argument (export_csv) to the build function to write the dataset as a CSV file
+- Add argument (output_path) a directory path for building datasets in
 
 ## [0.0.6] - 2022-02-01
 ### Added
