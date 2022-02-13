@@ -77,6 +77,7 @@ class Factory:
             "last_name": self.__last_name,
             # R
             "random_int": self.__random_int,
+            "random_float": self.__random_float,
         }
 
         if data_type in all_data_generators_dict.keys():
@@ -135,10 +136,23 @@ class Factory:
         Generate a list of random integers between two numbers
 
         Returns:
-            list
+            np array
         """
         rand_min, rand_max = 0, 100
         if self._ranges:
             rand_min, rand_max = min(self._ranges), max(self._ranges)
 
         return np.random.randint(rand_min, rand_max, size=self._size)
+
+    def __random_float(self):
+        """
+        Generate a list of random floats between two numbers
+
+        Returns:
+            np array
+        """
+        rand_min, rand_max = 1, 2
+        if self._ranges:
+            rand_min, rand_max = int(min(self._ranges)), int(max(self._ranges))
+
+        return np.random.uniform(rand_min, rand_max, size=self._size).round(4)

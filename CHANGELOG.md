@@ -5,6 +5,7 @@
 - Add argument (return_df) to the build function to return the pandas dataframe
 - Add argument (export_csv) to the build function to write the dataset as a CSV file
 - Add argument (output_path) a directory path for building datasets in
+- Add DataType: random_float to generate random floats
 
 ### Changed
 - Fixed a bug in data type: Decrement, where it was adding extra row
