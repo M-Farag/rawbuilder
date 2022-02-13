@@ -6,6 +6,9 @@
 - Add argument (export_csv) to the build function to write the dataset as a CSV file
 - Add argument (output_path) a directory path for building datasets in
 
+### Changed
+- Fixed a bug in data type: Decrement, where it was adding extra row
+
 ## [0.0.6] - 2022-02-01
 ### Added
 - Unit Tests

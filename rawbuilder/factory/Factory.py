@@ -69,7 +69,7 @@ class Factory:
         Returns:
             list
         """
-        return np.arange(start=self._size + 1, stop=1, step=-1)
+        return np.arange(start=self._size, stop=0, step=-1)
 
     # E
     def __email(self):
