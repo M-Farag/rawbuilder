@@ -24,14 +24,35 @@ class Factory:
         """
         column_description_parts = column_description.strip().split(' ')
 
+        # @todo check the number of parts must be >= 1
+        if len(column_description_parts) < 1:
+            raise KeyError('Column description must contain a data_type')
+
+        column_data_type = column_description_parts.pop(0)
+
+        # Setting Modifiers from the column description after removing the datatype
+        self.__set_modifier_from_column_description_parts(column_description_parts)
+
+        # Build column using the defined data type part
+        return self.__get_data_type_builder_method(column_data_type)()
+
+    def __set_modifier_from_column_description_parts(self, column_description_parts: list):
+        """
+        Setting Modifiers from the column description parts
+        User can pass multiple modifiers in the same line
+
+        Args:
+            column_description_parts:
+
+        Returns:
+            None
+
+        """
         for part in column_description_parts:
             """ Build ranges"""
             if part.startswith('between'):
                 self._ranges = part.strip().split(',')
                 self._ranges.remove('between')
-
-        """Build column using the first data type part"""
-        return self.__get_data_type_builder_method(column_description_parts[0])()
 
     def __get_data_type_builder_method(self, data_type):
         """
@@ -118,6 +139,6 @@ class Factory:
         """
         rand_min, rand_max = 0, 100
         if self._ranges:
-            rand_min,rand_max = min(self._ranges),max(self._ranges)
+            rand_min, rand_max = min(self._ranges), max(self._ranges)
 
         return np.random.randint(rand_min, rand_max, size=self._size)

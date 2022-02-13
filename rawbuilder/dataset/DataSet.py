@@ -108,8 +108,8 @@ class DataSet:
         factory = Factory(self._config.get('size'))
 
         df = pd.DataFrame()
-        for column_name, column_data_type in task_breakdown.items():
-            df[column_name] = pd.Series(data=factory.build_column(column_data_type))
+        for column_name, column_description in task_breakdown.items():
+            df[column_name] = pd.Series(data=factory.build_column(column_description))
 
         output_file_name = '{}_{}.csv'.format(self._config.get('task'), self._config.get('size'))
         if output_path:
