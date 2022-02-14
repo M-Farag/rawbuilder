@@ -130,7 +130,7 @@ class Factory:
         """
         return [self._fake.last_name() for i in range(self._size)]
 
-    # S
+    # R
     def __random_int(self):
         """
         Generate a list of random integers between two numbers
@@ -151,7 +151,7 @@ class Factory:
         Returns:
             np array
         """
-        rand_min, rand_max = 1, 2
+        rand_min, rand_max = 0, 1
         if self._ranges:
             rand_min, rand_max = int(min(self._ranges)), int(max(self._ranges))
 
