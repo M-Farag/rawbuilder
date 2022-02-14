@@ -7,7 +7,7 @@ from ..factory.Factory import Factory
 
 class DataSet:
 
-    def __init__(self, size: int, task: str, schema_path=None):
+    def __init__(self, size: int, task: str, schema_path=None, schema_dict: dict = None):
         """
         DataSet object constructor
 
@@ -15,9 +15,12 @@ class DataSet:
             size (int): the maximum rows size per dataset
             task (list): List of datasets to be built
             schema_path (mixed): The path to an optional schema
+            schema_dict (dict): the schema as a dict
 
         Raises:
             TypeError: when size is not int, task is not str
+            FileExistsError: When the schema path points to an invalid file
+
         Returns:
             object dataset
         """
@@ -27,8 +30,14 @@ class DataSet:
         if not isinstance(task, str):
             raise TypeError('Task name must be a string')
 
+        if schema_path and not os.path.isfile(schema_path):
+            raise FileExistsError('Schema_path must be a file')
+
+        if schema_dict and not isinstance(schema_dict, dict):
+            raise TypeError('Schema_dict must be of type dictionary')
+
         self._config = {'size': size, 'task': task, 'default_schema_file_name': 'schema.json'}
-        self._schema, self._schema_path = None, schema_path
+        self._schema, self._schema_path, self._schema_dict = None, schema_path, schema_dict
 
     @property
     def schema(self):
@@ -38,8 +47,7 @@ class DataSet:
         Returns:
             dictionary object
         """
-        self._read_schema_file()
-        # @todo return from the config dict
+        self._read_schema()
         return self._schema
 
     @property
@@ -50,18 +58,25 @@ class DataSet:
         Returns:
             str
         """
-        self._read_schema_file()
-        # @todo return from the config dict
+        self._read_schema()
         return self._schema_path
 
-    def _read_schema_file(self):
+    def _read_schema(self):
         """
-        Reading the schema file and init the schema  and the schema_location properties
+        Read the schema from a file, a path or a dictionary
+
+        Raises:
+            FileNotFoundError: when cannot find the schema file, from the built-in or from a path
+            ValueError: When the schema format is an invalid JSON
 
         Returns:
-            Bool
+            Void
         """
         try:
+            if self._schema_dict:
+                self._schema = self._schema_dict
+                return
+
             if self._schema_path is None:
                 self._schema_path = pkg_resources.resource_filename(__name__,
                                                                     "../{}".format(
@@ -99,7 +114,7 @@ class DataSet:
         if output_path is not None and not os.path.exists(output_path):
             raise NotADirectoryError('Output path must be a directory')
 
-        self._read_schema_file()
+        self._read_schema()
 
         if self._config.get('task') not in self.schema.keys():
             raise ValueError('Task: {} Not found in the schema file'.format(self._config.get('task')))

@@ -153,6 +153,6 @@ class Factory:
         """
         rand_min, rand_max = 0, 1
         if self._ranges:
-            rand_min, rand_max = int(min(self._ranges)), int(max(self._ranges))
+            rand_min, rand_max = float(min(self._ranges)), float(max(self._ranges))
 
         return np.random.uniform(rand_min, rand_max, size=self._size).round(4)
