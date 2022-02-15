@@ -1,5 +1,8 @@
+import string
+
 from faker import Faker
 import numpy as np
+import string
 
 
 class Factory:
@@ -30,10 +33,8 @@ class Factory:
 
         column_data_type = column_description_parts.pop(0)
 
-        # Setting Modifiers from the column description after removing the datatype
         self.__set_modifier_from_column_description_parts(column_description_parts)
 
-        # Build column using the defined data type part
         return self.__get_data_type_builder_method(column_data_type)()
 
     def __set_modifier_from_column_description_parts(self, column_description_parts: list):
@@ -78,6 +79,8 @@ class Factory:
             # R
             "random_int": self.__random_int,
             "random_float": self.__random_float,
+            # S
+            "password": self.__password,
         }
 
         if data_type in all_data_generators_dict.keys():
@@ -156,3 +159,16 @@ class Factory:
             rand_min, rand_max = float(min(self._ranges)), float(max(self._ranges))
 
         return np.random.uniform(rand_min, rand_max, size=self._size).round(4)
+
+    # P
+    def __password(self):
+        """
+        Generate a password string
+
+        Returns:
+            str: the return value is a string
+        """
+        password_max_length = 12
+        if self._ranges:
+            password_max_length = max(self._ranges)
+        return [self._fake.password(length=password_max_length) for i in range(self._size)]

@@ -7,6 +7,7 @@
 - Add argument (output_path) a directory path for building datasets in
 - Add DataType: random_float to generate random floats
 - Add Argument: (schema_dict) to read a schema from a dictionary
+- Add DataType: password to generate strong_passwords
 
 ### Changed
 - Fixed a bug in data type: Decrement, where it was adding extra row
