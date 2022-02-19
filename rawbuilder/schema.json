@@ -3,7 +3,8 @@
         "id": "decrement",
         "first_name": "first_name",
         "last_name": "last_name",
-        "email": "email"
+        "email": "email",
+        "password":"password"
     },
     "student": {
         "id": "decrement",
@@ -11,6 +12,6 @@
         "last_name": "last_name",
         "email": "email",
         "science_test_results": "random_int between,0,20",
-        "math_test_results": "random_int between,0,30"
+        "math_test_results": "random_float between,1,2"
     }
 }

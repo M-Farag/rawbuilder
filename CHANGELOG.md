@@ -1,6 +1,19 @@
 
 ## [unreleased]
 
+## [0.0.7] - 2022-02-19
+### Added
+- More Unit tests
+- Add argument (return_df) to the build function to return the pandas dataframe
+- Add argument (export_csv) to the build function to write the dataset as a CSV file
+- Add argument (output_path) a directory path for building datasets in
+- Add DataType: random_float to generate random floats
+- Add Argument: (schema_dict) to read a schema from a dictionary
+- Add DataType: password to generate strong_passwords
+
+### Changed
+- Fixed a bug in data type: Decrement, where it was adding extra row
+
 ## [0.0.6] - 2022-02-01
 ### Added
 - Unit Tests
