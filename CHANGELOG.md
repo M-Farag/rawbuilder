@@ -1,5 +1,7 @@
 
 ## [unreleased]
+
+## [0.0.7] - 2022-02-19
 ### Added
 - More Unit tests
 - Add argument (return_df) to the build function to return the pandas dataframe
