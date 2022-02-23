@@ -2,7 +2,6 @@ import string
 
 from faker import Faker
 import numpy as np
-import string
 
 
 class Factory:

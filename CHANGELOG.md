@@ -1,5 +1,8 @@
 
 ## [unreleased]
+### Added
+- Unit Testing Factory class
+
 
 ## [0.0.7] - 2022-02-19
 ### Added
