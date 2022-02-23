@@ -9,6 +9,10 @@ class Factory:
     def __init__(self, size: int):
         """
         The Data Mocker object
+
+        TODO:
+            - Raise a value error if the size is not int
+            - Complete the func docstring
         """
         self._size = size
         self._fake = Faker()
@@ -21,12 +25,12 @@ class Factory:
             column_description(str): the column data type and modifiers
         TODO:
             - Support complex column data types
+            - Check the number of parts must be >= 1 @ Line 34
         Returns:
             list
         """
         column_description_parts = column_description.strip().split(' ')
 
-        # @todo check the number of parts must be >= 1
         if len(column_description_parts) < 1:
             raise KeyError('Column description must contain a data_type')
 
