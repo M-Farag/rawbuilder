@@ -35,11 +35,12 @@ class Factory:
         column_description_parts = column_description.strip().split(' ')
 
         if len(column_description_parts) < 1:
-            raise KeyError('Column description must contain a data_type')
+            raise KeyError('Column description must contain a data type')
 
         column_data_type = column_description_parts.pop(0)
 
-        self._set_data_modifiers(column_description_parts)
+        if len(column_description_parts) > 1:
+            self._set_data_modifiers(column_description_parts)
 
         return self.__get_data_type_builder_method(column_data_type)()
 
