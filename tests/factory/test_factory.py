@@ -10,7 +10,7 @@ class TestInitFactoryObject(object):
         test_factory = Factory(size=10)
         assert test_factory._size == 10
         assert test_factory._ranges is None
-        assert isinstance(test_factory._fake, Faker)
+        assert isinstance(test_factory._faker, Faker)
 
     """Bad arguments"""
     def test_init_factory_object_with_string_size_raise_value_error(self):

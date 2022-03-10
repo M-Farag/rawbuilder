@@ -17,7 +17,7 @@ class Factory:
             raise TypeError('Size must be an integer')
 
         self._size = size
-        self._fake = Faker()
+        self._faker = Faker()
         self._ranges = None
 
     def build_column(self, column_description: str):
@@ -108,7 +108,7 @@ class Factory:
         Returns:
             list
         """
-        return [self._fake.email() for i in range(self._size)]
+        return [self._faker.email() for i in range(self._size)]
 
     # F
     def __first_name(self):
@@ -118,7 +118,7 @@ class Factory:
             list
 
         """
-        return [self._fake.first_name() for i in range(self._size)]
+        return [self._faker.first_name() for i in range(self._size)]
 
     # I
     def __int(self):
@@ -136,7 +136,7 @@ class Factory:
         Returns:
             list
         """
-        return [self._fake.last_name() for i in range(self._size)]
+        return [self._faker.last_name() for i in range(self._size)]
 
     # R
     def __random_int(self):
@@ -176,4 +176,4 @@ class Factory:
         password_max_length = 12
         if self._ranges:
             password_max_length = max(self._ranges)
-        return [self._fake.password(length=password_max_length) for i in range(self._size)]
+        return [self._faker.password(length=password_max_length) for i in range(self._size)]
