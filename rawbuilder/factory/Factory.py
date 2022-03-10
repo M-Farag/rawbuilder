@@ -11,9 +11,11 @@ class Factory:
         The Data Mocker object
 
         TODO:
-            - Raise a value error if the size is not int
             - Complete the func docstring
         """
+        if not isinstance(size, int):
+            raise TypeError('Size must be an integer')
+
         self._size = size
         self._fake = Faker()
         self._ranges = None
