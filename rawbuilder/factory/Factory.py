@@ -8,10 +8,13 @@ class Factory:
 
     def __init__(self, size: int):
         """
-        The Data Mocker object
+        Init a new factory object
 
-        TODO:
-            - Complete the func docstring
+        Args:
+            size(int): The max number of rows required for the build.
+
+        Raises:
+            TypeError: on non-int size
         """
         if not isinstance(size, int):
             raise TypeError('Size must be an integer')
