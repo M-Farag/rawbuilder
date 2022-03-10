@@ -29,7 +29,6 @@ class Factory:
         Args:
             column_description(str): the column data type and modifiers
         TODO:
-            - Support complex column data types
             - Check the number of parts must be >= 1 @ Line 34
         Returns:
             list
@@ -41,11 +40,11 @@ class Factory:
 
         column_data_type = column_description_parts.pop(0)
 
-        self.__set_modifier_from_column_description_parts(column_description_parts)
+        self.__set_data_modifiers(column_description_parts)
 
         return self.__get_data_type_builder_method(column_data_type)()
 
-    def __set_modifier_from_column_description_parts(self, column_description_parts: list):
+    def __set_data_modifiers(self, column_description_parts: list):
         """
         Setting Modifiers from the column description parts
         User can pass multiple modifiers in the same line
